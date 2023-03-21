@@ -1,0 +1,1 @@
+export { createUserPersonalInformationService } from './userPersonalInformation';
