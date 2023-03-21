@@ -35,9 +35,6 @@ export default class Fields extends BaseEntity<Fields, 'id'> {
     @ManyToMany(() => Users, (user) => user.fields)
     users = new Collection<Users>(this);
 
-    @ManyToOne(() => Sections)
-    section!: Sections;
-
     @Property({ fieldName: 'created_by' })
     created_by!: string;
 
@@ -48,5 +45,5 @@ export default class Fields extends BaseEntity<Fields, 'id'> {
     updated_at: Date | null = new Date();
 
     @Property({ fieldName: 'deleted_at', type: Date, nullable: true })
-    deleted_at?: Date | null = new Date();
+    deleted_at?: Date | null = null;
 }

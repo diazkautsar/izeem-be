@@ -14,6 +14,12 @@ export default class UserFields extends BaseEntity<UserFields, 'id'> {
     @Property({ fieldName: 'field_id' })
     field_id!: number;
 
+    @Property({ fieldName: 'order' })
+    order!: number;
+
+    @Property({ fieldName: 'value', nullable: true })
+    value?: string | null;
+
     @ManyToMany(() => Users)
     users = new Collection<Users>(this);
 
@@ -30,5 +36,5 @@ export default class UserFields extends BaseEntity<UserFields, 'id'> {
     updated_at: Date | null = new Date();
 
     @Property({ fieldName: 'deleted_at', type: Date, nullable: true })
-    deleted_at?: Date | null = new Date();
+    deleted_at?: Date | null = null;
 }

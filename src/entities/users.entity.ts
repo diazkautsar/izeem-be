@@ -17,6 +17,9 @@ export default class Users extends BaseEntity<Users, 'id'> {
     @Property({ fieldName: 'summary_profile', length: 225 })
     summary_profile!: string;
 
+    @Property({ fieldName: 'image_url', length: 225, nullable: true })
+    image_url!: string;
+
     @ManyToMany(() => Sections)
     sections = new Collection<Sections>(this);
 
@@ -33,5 +36,5 @@ export default class Users extends BaseEntity<Users, 'id'> {
     updated_at: Date | null = new Date();
 
     @Property({ fieldName: 'deleted_at', type: Date, nullable: true })
-    deleted_at?: Date | null = new Date();
+    deleted_at?: Date | null = null;
 }

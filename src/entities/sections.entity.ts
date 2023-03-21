@@ -26,9 +26,6 @@ export default class Sections extends BaseEntity<Sections, 'id'> {
     @ManyToMany(() => Users, (user) => user.sections)
     users = new Collection<Users>(this);
 
-    @OneToMany(() => Fields, (field) => field.section)
-    fields = new Collection<Fields>(this);
-
     @Property({ fieldName: 'created_by' })
     created_by!: string;
 
@@ -39,5 +36,5 @@ export default class Sections extends BaseEntity<Sections, 'id'> {
     updated_at: Date | null = new Date();
 
     @Property({ fieldName: 'deleted_at', type: Date, nullable: true })
-    deleted_at?: Date | null = new Date();
+    deleted_at?: Date | null = null;
 }

@@ -33,5 +33,5 @@ export default class UserSections extends BaseEntity<UserSections, 'id'> {
     updated_at: Date | null = new Date();
 
     @Property({ fieldName: 'deleted_at', type: Date, nullable: true })
-    deleted_at?: Date | null = new Date();
+    deleted_at?: Date | null = null;
 }
