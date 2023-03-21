@@ -1,0 +1,1 @@
+export { createUserPersonalInformationController } from './userPersonalInformation';
