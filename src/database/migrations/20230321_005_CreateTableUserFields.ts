@@ -10,6 +10,7 @@ export default class Migrations_20230321_005_CreateTableUserFields extends Migra
             t.integer('user_id').notNullable();
             t.integer('field_id').notNullable();
             t.integer('order').notNullable();
+            t.text('value').nullable();
 
             t.string('created_by', 150).notNullable();
             t.timestamp('created_at').nullable().defaultTo(knex.fn.now());

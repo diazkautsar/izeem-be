@@ -2,6 +2,7 @@ import { MikroORM } from '@mikro-orm/core';
 
 import Sections from '../../entities/sections.entity';
 import Fields from '../../entities/fields.entity';
+import { SLUG_SECTION_PERSONAL_INFORMATION, SLUG_SECTION_PROFILE } from '../../constants';
 
 export default async (ORM: MikroORM) => {
     const entityManager = ORM.em.fork();

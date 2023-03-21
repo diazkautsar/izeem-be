@@ -10,7 +10,7 @@ export class Migrations_20230320_001_CreateTableUser extends Migration {
             t.string('name', 225).notNullable();
             t.string('job_title', 100).notNullable();
             t.string('summary_profile', 100).notNullable();
-            t.string('image_url', 100).nullable();
+            t.string('image_url', 225).nullable();
 
             t.string('created_by', 150).notNullable();
             t.timestamp('created_at').nullable().defaultTo(knex.fn.now());
