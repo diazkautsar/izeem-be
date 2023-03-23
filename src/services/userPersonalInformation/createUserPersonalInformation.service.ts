@@ -3,10 +3,14 @@ import { FastifyInstance } from 'fastify';
 import Sections from '../../entities/sections.entity';
 import Users from '../../entities/users.entity';
 import UserSections from '../../entities/userSections.entity';
-import UserFields from '../../entities/userFields';
+import UserFields from '../../entities/userFields.entity';
 import Fields from '../../entities/fields.entity';
 
-import { MPPING_DEFAULT_SLUG_SECTION_WITH_ORDER } from '../../constants/index';
+import {
+    MPPING_DEFAULT_SLUG_SECTION_WITH_ORDER,
+    SLUG_PERSONAL_INFORMATION,
+    MAPPING_DEFAULT_ORDER_USER_FIELD_PERSONAL_INFORMATION,
+} from '../../constants/index';
 
 type CreateUserPersonalInformationService = (
     this: FastifyInstance,
@@ -20,7 +24,7 @@ type CreateUserPersonalInformationService = (
         address: string;
         website?: string;
     }
-) => Promise<{ success: boolean; message: string }>;
+) => Promise<{ success: boolean; message: string; statusCode: number }>;
 
 const createUserPersonalInformationService: CreateUserPersonalInformationService = async function ({
     name,
@@ -36,6 +40,16 @@ const createUserPersonalInformationService: CreateUserPersonalInformationService
     await em.begin();
 
     try {
+        const existUser = await em.findOne(Users, { name });
+        if (existUser) {
+            await em.commit();
+            return {
+                message: 'User already exist',
+                success: false,
+                statusCode: 400,
+            };
+        }
+
         const user = new Users();
         user.name = name;
         user.job_title = job_title;
@@ -57,13 +71,33 @@ const createUserPersonalInformationService: CreateUserPersonalInformationService
             await em.persistAndFlush(userSection);
         }
 
+        const fields = await em.find(Fields, {
+            slug: {
+                $in: SLUG_PERSONAL_INFORMATION,
+            },
+        });
+
+        for (const field of fields) {
+            const bodyReq = { website, phone, email, address };
+            const userField = new UserFields();
+            userField.user_id = user.id;
+            userField.field_id = field.id;
+            userField.order = MAPPING_DEFAULT_ORDER_USER_FIELD_PERSONAL_INFORMATION[field.slug];
+            userField.value = bodyReq[field.slug] ?? null;
+            userField.created_by = 'system';
+
+            await em.persistAndFlush(userField);
+        }
+
         await em.commit();
 
         return {
             success: true,
             message: 'Success create user personal information',
+            statusCode: 201,
         };
     } catch (error) {
+        console.log(error);
         await em.rollback();
         throw error;
     }
