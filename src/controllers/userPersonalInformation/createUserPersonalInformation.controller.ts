@@ -14,11 +14,11 @@ const createUserPersonalInformationController: CreateUserPersonalInformationCont
     reply
 ) {
     try {
-        const { message, success } = await createUserPersonalInformationService.bind(this)(request.body);
+        const { message, success, statusCode } = await createUserPersonalInformationService.bind(this)(request.body);
 
-        reply.send({
+        reply.code(statusCode).send({
             status: success,
-            statusCode: 201,
+            statusCode,
             message,
             messageTitle: message,
             data: null,
