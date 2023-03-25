@@ -1,4 +1,13 @@
-import { BaseEntity, BigIntType, Entity, PrimaryKey, Property, ManyToMany, Collection } from '@mikro-orm/core';
+import {
+    BaseEntity,
+    BigIntType,
+    Entity,
+    PrimaryKey,
+    Property,
+    ManyToMany,
+    Collection,
+    ManyToOne,
+} from '@mikro-orm/core';
 
 import Users from './users.entity';
 import Fields from './fields.entity';
@@ -20,10 +29,10 @@ export default class UserFields extends BaseEntity<UserFields, 'id'> {
     @Property({ fieldName: 'value', nullable: true })
     value?: string | null;
 
-    @ManyToMany(() => Users)
+    @ManyToOne(() => Users)
     users = new Collection<Users>(this);
 
-    @ManyToMany(() => Fields)
+    @ManyToOne(() => Fields)
     fields = new Collection<Fields>(this);
 
     @Property({ fieldName: 'created_by' })
