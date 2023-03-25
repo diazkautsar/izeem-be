@@ -28,4 +28,5 @@ export const ReplySchema = {
     500: schemaBuilder(false, 500, 'Internal Server Error'),
 };
 
-export { createUserPersonalInformationSchema, getUserPersonalInformationSchema } from './userPeronsalInformation';
+export { default as createCVSchema } from './createCV.schema';
+export { default as getUserPersonalInformationSchema } from './getUserPersonalInformation.schema';
