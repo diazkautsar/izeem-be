@@ -1,1 +1,1 @@
-export { createUserPersonalInformationService } from './userPersonalInformation';
+export { createUserPersonalInformationService, getUserPersonalInformationService } from './userPersonalInformation';
