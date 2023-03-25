@@ -29,12 +29,6 @@ export default class UserFields extends BaseEntity<UserFields, 'id'> {
     @Property({ fieldName: 'value', nullable: true })
     value?: string | null;
 
-    @ManyToOne(() => Users)
-    users = new Collection<Users>(this);
-
-    @ManyToOne(() => Fields)
-    fields = new Collection<Fields>(this);
-
     @Property({ fieldName: 'created_by' })
     created_by!: string;
 
