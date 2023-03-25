@@ -28,4 +28,4 @@ export const ReplySchema = {
     500: schemaBuilder(false, 500, 'Internal Server Error'),
 };
 
-export { createUserPersonalInformationSchema } from './userPeronsalInformation';
+export { createUserPersonalInformationSchema, getUserPersonalInformationSchema } from './userPeronsalInformation';
