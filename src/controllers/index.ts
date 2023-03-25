@@ -1,1 +1,4 @@
-export { createUserPersonalInformationController } from './userPersonalInformation';
+export {
+    createUserPersonalInformationController,
+    getUserPersonalInformationController,
+} from './userPersonalInformation';
